@@ -1,0 +1,182 @@
+
+Step-by-Step Deployment Guide for Beginners (Email-OTP-Pro / Collabstr)
+I'll guide you to deploy for free using Render.com (easiest for beginners). Backend on Render (free MongoDB Atlas + Node), Frontend on Vercel/Netlify (static hosting). Total time: ~30 mins.
+
+Prerequisites (5 mins)
+Create free accounts:
+
+Render.com (backend)
+MongoDB Atlas (free database)
+Vercel.com (frontend, GitHub required)
+GitHub.com (if no account)
+Install Git (if not installed):
+
+
+# Windows: Download from https://git-scm.com
+# Check: git --version
+Push your code to GitHub (from VSCode terminal in d:/BABY-DINI-SK/Email-OTP-Pro):
+
+
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/collabstr.git
+git push -u origin main
+(Replace YOUR_USERNAME/collabstr.git - create repo first on GitHub)
+
+Step 1: Setup Database (MongoDB Atlas) - 5 mins
+Login to MongoDB Atlas
+Create Cluster → Free M0 → Create
+Database Access → Add New → Username: collabstr Password: password123 → Create
+Network Access → Add IP → 0.0.0.0/0 (allow all for beginner)
+Connect → Drivers → Copy connection string:
+
+mongodb+srv://collabstr:<password>@cluster0.xxxxx.mongodb.net/collabstr?retryWrites=true&w=majority
+Replace <password> with password123
+Step 2: Backend Deployment (Render) - 10 mins
+Create .env in backend/ folder:
+
+
+MONGODB_URI=mongodb+srv://collabstr:password123@cluster0.xxxxx.mongodb.net/collabstr?retryWrites=true&w=majority
+PORT=10000
+EMAIL_USER=sravanthkumar910@gmail.com
+EMAIL_PASS=rnky txnr pgtx tzxk
+(Use your Atlas connection string & Gmail app password)
+
+Go to Render.com → New → Web Service → Connect GitHub → Select collabstr repo
+
+Settings:
+
+Field	Value
+Name	collabstr-backend
+Root Directory	backend
+Environment	Node
+Region	Oregon (US West) (cheapest)
+Build Command	npm install
+Start Command	npm start
+Environment Variables → Add all from .env above	
+Create Web Service → Wait 2-3 mins → Get Backend URL: https://collabstr-backend-abc123.onrender.com
+
+Step 3: Frontend Deployment (Vercel) - 5 mins
+Go to Vercel.com → Add New → Project → Import GitHub collabstr
+
+Configure Project:
+
+Field	Value
+Framework	Vite
+Root Directory	frontend
+Environment Variables → Add:
+
+
+VITE_API_URL=https://collabstr-backend-abc123.onrender.com
+Deploy → Wait 1 min → Get Frontend URL: https://collabstr-frontend.vercel.app
+
+**Step 4: Update Frontend API
+
+in the atlas "mongodb+srv://sravanthkumar910_db_user:<db_password>@cluster0.mgt1qzz.mongodb.net/ "
+
+BLACKBOXAI
+
+Complete Beginner Deployment Guide (Updated with Your MongoDB Atlas URL)
+Your MongoDB Atlas URL: mongodb+srv://sravanthkumar910_db_user:<db_password>@cluster0.mgt1qzz.mongodb.net/
+
+Replace <db_password> with your actual Atlas password (get from Atlas → Database Access).
+
+Step 1: Push Code to GitHub (5 mins)
+From VSCode terminal (`Ctrl+``):
+
+
+git init
+git add .
+git commit -m "Ready for deployment"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/collabstr.git
+git push -u origin main
+Create collabstr repo on GitHub first.
+
+Step 2: Create Backend .env file
+Create backend/.env:
+
+
+MONGODB_URI=mongodb+srv://sravanthkumar910_db_user:YOUR_DB_PASSWORD@cluster0.mgt1qzz.mongodb.net/collabstr?retryWrites=true&w=majority
+PORT=10000
+EMAIL_USER=sravanthkumar910@gmail.com
+EMAIL_PASS=rnky txnr pgtx tzxk
+MONGODB_URI=mongodb://localhost:27017/collabstr
+PORT=5001
+EMAIL_USER=sravanthkumar910@gmail.com
+EMAIL_PASS=rnky txnr pgtx tzxk
+Commit & push:
+
+
+git add backend/.env
+git commit -m "Add env"
+git push
+Step 3: Deploy Backend (Render.com) - FREE
+Render.com → New → Web Service →
+
+
+BLACKBOXAI
+
+User wants deployment instructions as beginner, provided Atlas connection. Previous response interrupted at Step 4. Need to update frontend API calls from 'http://localhost:5001' to production backend URL (e.g. Render). dashboard.jsx has hardcoded 'http://localhost:5001/api/settings', etc. Common pattern across files. Create plan: use search_files to find all 'localhost:5001' instances, then edit_file to replace with env var. Use VITE_API_URL for frontend. First, confirm locations.
+
+
+Searched
+Email-OTP-Pro/frontend/src/(*.jsx)
+• 96 matches for "localhost:5001"
+
+Searched
+Email-OTP-Pro/frontend/src/(*.jsx)
+• 96 matches for "http://localhost:5001"
+
+BLACKBOXAI
+
+Deployment Update: Fix Frontend API URLs for Production
+
+All frontend files use hardcoded http://localhost:5001. Replace with env var import.meta.env.VITE_API_URL.
+
+Edit Plan
+Information Gathered:
+
+20+ localhost:5001 instances across 11 .jsx files (pages/Login.jsx, App.jsx, components/dashboard.jsx, projects.jsx, payments.jsx, etc.).
+Pattern: fetch('http://localhost:5001/api/ENDPOINT') or axios.post("http://localhost:5001/api/ENDPOINT").
+Backend routes: /api/auth, /projects, /payments, /settings.
+Plan:
+
+Global replace "http://localhost:5001" → "${import.meta.env.VITE_API_URL}"
+Add to frontend/.env: VITE_API_URL=https://your-render-backend.onrender.com
+Update Vercel env var same way.
+Dependent Files: All 11 listed .jsx files.
+
+Followup steps:
+
+User gets Render backend URL (e.g. https://collabstr-backend-abc.onrender.com)
+Set VITE_API_URL in Vercel
+git push → auto redeploy
+Test register/login
+Confirm before editing?
+
+
+blackbox has a question:
+Ready to auto-replace all localhost:5001 → VITE_API_URL in frontend? Provide your Render backend URL (after Step 3) or say "proceed" to edit now (use placeholder, update Vercel later).
+
+
+can u adjest the whole the code to ake it correct
+
+BLACKBOXAI
+
+User confirmed to adjust whole code. Plan approved implicitly. Now breakdown: Create TODO.md, then edit files. Use placeholder ${import.meta.env.VITE_API_URL} for all API calls. Multiple edits via multiple edit_file calls in parallel. Target exact matches from search results. Do not overwrite full files. After edits, followup: create .env example, git push instructions.
+
+Creating TODO.md for deployment prep...
+
+
+
+
+
+
+
+
+Connection error.
+Connection error.
+

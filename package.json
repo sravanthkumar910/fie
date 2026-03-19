@@ -1,0 +1,9 @@
+{
+  "name": "fie2",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd backend && npm install",
+    "start": "cd backend && npm start"
+  },
+  "repository": "sravanthkumar910/Fie2"
+}
