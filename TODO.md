@@ -1,46 +1,15 @@
-# Deployment Progress - Collabstr Live!
+# GitHub Push and PR TODO
 
-## Completed ✅
-- [x] Backend deployed: https://fie-j4au.onrender.com (Node/Express)
-- [x] MongoDB Atlas setup (mongodb+srv://root:12345@cluster0.gj2mwpl.mongodb.net/)
-- [x] backend/.env.example created (for reference)
-- [x] frontend/.env: VITE_API_URL=https://fie-j4au.onrender.com (proxies API)
-- [x] Frontend files restored (App.jsx confirmed working)
+## Completed Steps:
+✅ 3. Stage changes: `git add .`
+✅ 4. Commit: `git commit -m "chore: update docs TODOs env configs add backend README"`
+✅ 5. New branch: `git checkout -b blackboxai/recent-updates`
+✅ 6. Push branch: `git push -u origin blackboxai/recent-updates` (success!)
 
-## Critical: Render Env Vars (add manually → auto-redeploy)
-| Key | Value |
-|----|-------|
-| MONGODB_URI | `mongodb+srv://root:12345@cluster0.gj2mwpl.mongodb.net/collabstr?retryWrites=true&w=majority` |
-| EMAIL_USER | `yourgmail@gmail.com` |
-| EMAIL_PASS | `your_gmail_app_password` (Google: Security > App passwords > Select app 'Mail') |
+## Pending Steps:
+1. Install GitHub CLI: `winget install --id GitHub.cli` (or download MSI from https://cli.github.com/)
+2. Login: `gh auth login`
+3. Create PR: Visit https://github.com/sravanthkumar910/fie/pull/new/blackboxai/recent-updates or run `gh pr create --title "chore: recent updates" --body "Docs, TODOs, envs, README"` after gh install/login.
 
-**Atlas Check:** Ensure Network Access: Add IP 0.0.0.0/0.
+**LF/CRLF warnings are normal on Windows (git config core.autocrlf input to suppress if desired). Branch pushed successfully!**
 
-## Next: Frontend Deploy (Vite Static)
-```powershell
-cd frontend
-npm install
-npm run build   # Creates dist/
-npm i -g vercel
-vercel --prod   # Links to fie-frontend.vercel.app
-```
-Update vite.config.js proxy target='https://fie-j4au.onrender.com/api' if needed.
-
-## Git Clean
-```powershell
-git add -A
-git commit -m "Deploy prep: env files + restore assets"
-git checkout SK
-git checkout main
-git merge SK
-git push origin main
-```
-
-## Test Flow
-1. Frontend live → Register (name,email,pass) → Email OTP.
-2. Verify OTP → Login → Dashboard (fetches /api/settings).
-3. Create project → Payments → Charts live!
-
-**Status: Backend 90% (await env vars). Frontend ready to build/deploy.** 🚀
-
-**Run the git & frontend commands above. Share Render logs after env vars!**

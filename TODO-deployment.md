@@ -1,21 +1,47 @@
-# RECTIFY RENDER
+# Local Development Guide - Collabstr
 
-**Cause:** Old commit + wrong Build Command
+## Prerequisites
+- Node.js (LTS)
+- MongoDB (local install and running on default port 27017)
+- npm/yarn
 
-**1. Push main:**
-git checkout main
-git merge Check
-git push origin main
+## Quick Start
 
-**2. New Service Settings:**
-- Root Directory: `backend`
-- Build Command: **BLANK**
-- Start Command: `npm start`
+### Backend
+```bash
+cd backend
+npm install
+# Copy .env.example to .env and update:
+# MONGODB_URI=mongodb://127.0.0.1:27017/collabstr
+# EMAIL_USER=your_gmail@gmail.com
+# EMAIL_PASS=your_gmail_app_password
+npm start
+```
+Backend runs on http://localhost:5001
 
-**Env 3 vars**
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend runs on http://localhost:5173 (proxies /api to backend)
 
-Create → npm install in backend/ → Success!
+## Test Flow
+1. Frontend → Register (name,email,pass) → Check email for OTP
+2. Verify OTP → Login → Dashboard loads settings/projects
+3. Create project → Add payment → Charts update
 
-**Manual Deploy after push.**
+## MongoDB Setup
+```
+mongosh
+use collabstr
+// No need for manual DB setup - Mongoose auto-creates
+```
 
-Live!
+## Troubleshooting
+- CORS? Check vite.config.js proxy
+- Email? Verify Gmail app password
+- Mongo? Check mongod service/MongoDB Compass
+
+Fully local - no cloud deploys needed!
